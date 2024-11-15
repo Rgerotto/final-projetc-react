@@ -12,6 +12,19 @@ const { data, error } = await supabase
     return data;
 }
 
+export async function createNewCabin(newCabin){
+
+const { data, error } = await supabase
+.from('cabins')
+.insert([newCabin])
+//.select()
+if(error) {
+    console.error(error);
+    throw new Error('Cabin could not be created')
+}
+return data;
+}
+
 export async function deleteCabin(id){
 
 const { data, error } = await supabase
@@ -20,7 +33,8 @@ const { data, error } = await supabase
 .eq('id', id);
 
 if(error) {
-    console.error('Cabin could not be deleted');
+    console.error(error);
+    throw new Error('Cabin could not be deleted')
 }
 return data;
 

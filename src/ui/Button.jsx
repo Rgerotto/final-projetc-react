@@ -58,7 +58,7 @@ const variations = {
   `
 
   Button.defaultProps ={
-    variation: 'danger',
+    variation: 'primary',
     size: 'medium',
   }
   export default Button;
