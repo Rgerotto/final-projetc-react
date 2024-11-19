@@ -36,6 +36,8 @@ if(error) {
     console.error(error);
     throw new Error('Cabin could not be created')
 }
+//upload image
+if(hasImagePath) return data; //immediately return data if has image
 
 const { error: storageError } = await supabase.storage
 .from('cabin-images')
