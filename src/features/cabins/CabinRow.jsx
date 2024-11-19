@@ -1,10 +1,12 @@
-import styled from "styled-components";
-import toast from 'react-hot-toast';
-import {formatCurrency} from '../../utils/helpers'
-import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { deleteCabin } from "../../services/apiCabins";
 import { useState } from "react";
+//import { useMutation, useQueryClient } from "@tanstack/react-query";
+import styled from "styled-components";
+//import toast from 'react-hot-toast';
+
+import {formatCurrency} from '../../utils/helpers'
+//import { deleteCabin } from "../../services/apiCabins";
 import CreateCabinForm from "./CreateCabinForm";
+import { useDeleteCabin } from "./useDeleteCabin";
 
 const TableRow = styled.div`
   display: grid;
@@ -46,20 +48,10 @@ const Discount = styled.div`
 `;
 function CabinRow({cabin}) {
   const [showForm, setShowForm] = useState(false);
+  const { isDeleting, deleteCabin } = useDeleteCabin();
+  const {id: cabinId, name, maxCapacity, regularPrice, discount, image} = cabin;
 
-  const {id: cabinId, name, maxCapacity, regularPrice, discount, image} = cabin
-  const queryClient = useQueryClient();
-  const {isLoading: isDeleting, mutate} = useMutation({
-    mutationFn: deleteCabin,
-    onSuccess: () => {
-      toast.success('Cabin successfully deleted')
-      queryClient.invalidateQueries({
-        queryKey: ['cabins']
-      })
-    },
 
-    onError: error => toast.error(error.message)
-  })
 
   return (
     <>
@@ -68,10 +60,14 @@ function CabinRow({cabin}) {
   <Cabin>{name}</Cabin>
   <div>Fits up to {maxCapacity} guests</div>
   <Price>{formatCurrency(regularPrice)}</Price>
-  <Discount>{formatCurrency(discount)}</Discount>
+  {discount ? (
+    <Discount>{formatCurrency(discount)}</Discount>
+  ) : (
+    <span>&mdash;</span>
+  )}
   <div>
   <button onClick={() => setShowForm(show => !show)}>Edit</button>
-  <button onClick={() => mutate(cabinId)} disable={isDeleting}>Delete</button>
+  <button onClick={() => deleteCabin(cabinId)} disable={isDeleting}>Delete</button>
   </div>
 </TableRow>
     {showForm && <CreateCabinForm cabinToEdit={cabin}/>}
