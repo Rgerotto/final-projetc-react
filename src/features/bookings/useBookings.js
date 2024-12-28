@@ -19,7 +19,6 @@ export function useBookings(){
 
     //Pagination
 const page = !searchParams.get('page') ? 1 : Number(searchParams.get('page'));
-console.log('useBookings',page)
 
 //QUERY
  const {isLoading, data: {data: bookings, count} = {}, error} = useQuery({
