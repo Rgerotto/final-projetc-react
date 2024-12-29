@@ -7,7 +7,7 @@ export function useSettings(){
         queryKey: ['settings'],
         queryFn: getSettings,
     });
-
     //console.log("useSettings:", settings)
+
     return { isLoading, error, settings };
 }
