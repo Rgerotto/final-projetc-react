@@ -34,7 +34,7 @@ function CheckinBooking() {
   //console.log("checkinbooking.jsx",settings.breakfastPrice)
   useEffect(() => setConfirmPaid(booking?.isPaid ?? false) , [booking])
   const moveBack = useMoveBack();
-  const {checkin, isCheckinIn} = useCheckin();
+  const {checkin, isCheckingIn} = useCheckin();
 
   if(isLoading || isLoadingSettings) return <Spinner />
 
@@ -88,14 +88,14 @@ function CheckinBooking() {
       <Box>
         <Checkbox checked={confirmPaid} 
         onChange={() => setConfirmPaid((confirm) => !confirm)} 
-        disabled={confirmPaid || isCheckinIn} id={'confirm'}>
+        disabled={confirmPaid || isCheckingIn} id={'confirm'}>
         I confirm that {guests.fullname} has paid the total amount of {' '} 
         {!addBreakfast ?  formatCurrency(totalPrice) : `${formatCurrency(totalPrice + optionalBreakfastPrice)} (${formatCurrency(totalPrice)} + ${formatCurrency(optionalBreakfastPrice)})`}
         </Checkbox>
         </Box>
 
       <ButtonGroup>
-        <Button onClick={handleCheckin} disabled={!confirmPaid || isCheckinIn}>Check in booking #{bookingId}</Button>
+        <Button onClick={handleCheckin} disabled={!confirmPaid || isCheckingIn}>Check in booking #{bookingId}</Button>
         <Button variation="secondary" onClick={moveBack}>
           Back
         </Button>
