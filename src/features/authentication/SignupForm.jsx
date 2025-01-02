@@ -13,16 +13,16 @@ function SignupForm() {
   const { errors } = formState;
 
   function onSubmit({ fullName, email, password }) {
-    //console.log(data)
+    console.log({fullName, email, password})
     signup({ fullName, email, password }, {
       onSettled: reset,
     }
-    )
-  }
+  )
+}
   return (
     <Form onSubmit={handleSubmit(onSubmit)}>
       <FormRow label="Full name" error={errors?.fullName?.message}>
-        <Input type="text" id="fullName" {...register('fullname', { required: 'This field is required' })} disabled={isLoading} />
+        <Input type="text" id="fullName" {...register('fullName', { required: 'This field is required' })} disabled={isLoading} />
       </FormRow>
 
       <FormRow label="Email address" error={errors?.email?.message}>
@@ -49,7 +49,7 @@ function SignupForm() {
 
       <FormRow>
         {/* type is an HTML attribute! */}
-        <Button variation="secondary" type="reset"  disabled={isLoading}>
+        <Button variation="secondary" type="reset"  disabled={isLoading} onClick={reset}>
           Cancel
         </Button>
         <Button disabled={isLoading}>Create new user</Button>
