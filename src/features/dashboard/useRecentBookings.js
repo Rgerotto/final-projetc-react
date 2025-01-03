@@ -3,6 +3,9 @@ import { subDays } from "date-fns";
 import { useSearchParams } from "react-router-dom";
 import { getBookingsAfterDate } from "../../services/apiBookings";
 
+
+//NEED TO FIX:
+//DO NOT SHOWING LAST 7 DAYS BOOKINGS
 export function useRecentBookings() {
   const [searchParams] = useSearchParams();
 
