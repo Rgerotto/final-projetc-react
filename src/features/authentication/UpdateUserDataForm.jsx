@@ -18,25 +18,25 @@ function UpdateUserDataForm() {
     },
   } = useUser();
   const { updateUser, isUpdating } = useUpdateUser();
-  const [fullName, setFullName] = useState(currentFullName);
+  const [fullName, setFullName] = useState(currentFullName); // Fixing the state initialization here
   const [avatar, setAvatar] = useState(null);
 
+  console.log(fullName);
+  
   function handleSubmit(e) {
     e.preventDefault();
-    if(!fullName) return;
-    updateUser({fullName, avatar},
-      {
-        onSuccess: () => {
-          setAvatar(null);
-          e.target.reset();
-        }
+    if (!fullName) return;
+    updateUser({ fullName, avatar }, {
+      onSuccess: () => {
+        setAvatar(null);
+        e.target.reset();
       }
-    );
+    });
   }
 
   function handleCancel() {
-setFullName(currentFullName);
-setAvatar(null);
+    setFullName(currentFullName);
+    setAvatar(null);
   }
 
   return (

@@ -21,7 +21,7 @@ if(isLoading) return <Spinner />
 function handleUpdate (e, field){
   const {value} = e.target;
   
-  if(!value) return ;
+  if(!value) return;
   updateSetting({[field]: value})
 }
 
